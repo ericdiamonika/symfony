@@ -38,6 +38,10 @@ php ../composer.phar req twig
 pour installer security
 php ../composer.phar req security
 
+
+pour installer orm 
+php ../composer.phar req orm-pack
+
 **Pour créer une page dynamique**
 
 on installe twig
@@ -65,6 +69,10 @@ dans notre fichier BlogController.php
         
 
     }
+
+
+
+
 
 
 

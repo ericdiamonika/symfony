@@ -2,6 +2,11 @@
 
 namespace App\Controller;
 
+use App\DataFixtures\PostFixtures;
+use App\Entity\Post;
+use App\Form\PostType;
+use App\Repository\PostRepository;
+use App\Services\Calculator;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
@@ -49,22 +54,48 @@ class BlogController extends Controller
     }
 
     /**
-     * @Route("/caca", name="caca")
+     * @Route("/form", name="form")
+     */
+    public function newPost() {
+        $post = new Post();
+        $form = $this->createForm(PostType::class, $post);
+        return $this->render('post.html.twig',
+            [
+                'form' => $form->createView()
+            ]);
+    }
+
+    /**
+     * @Route("/put/{a}/{b}", name="maths_add")
      */
 
-    public function caca(){
-        return new Response('
-        <html>
-            <body>
-                <h1 style="">
-                    Bonjour
-                </h1>
-            
-            </body>
-        
-        </html>
-        
-        ');
+    public function put(float $a, float $b, Calculator $calculator )
+    {
+
+        $result = $calculator->add($a, $b);
+
+        return $this->render('maths.html.twig', [
+            'a' => $a,
+            'b' => $b,
+            'result' => $result,
+        ]);
+    }
+
+    /**
+     *
+     * Matches /caca/*
+     *
+     * @Route("/caca/{slug}/{age}")
+     */
+
+    public function caca($slug, $age){
+
+        return $this->render('url.html.twig', [
+            'blog_title' => 'Mon super suuper',
+            'slug' => $slug,
+            'age' => $age,
+        ]);
+
     }
 }
 
